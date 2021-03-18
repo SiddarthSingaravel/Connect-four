@@ -6,8 +6,6 @@
 
 using namespace std;
 
-#define INT_MIN (-2147483647 - 1)
-#define INT_MAX 2147483647
 
 Game::Game()
 {
@@ -92,62 +90,6 @@ int Game::findBestMove()
 	cout<<"\nTime to calculate best move: "<< duration.count() <<endl;
 	return bestCol;
 }
-
-int Game::minimax(int depth, int maxDepth, bool isMaximizingPlayer, int player)
-{
-	if (depth == maxDepth)
-	{
-		return board.evaluateBoard(player);
-	}
-
-	int nextPlayer = player == 1 ? 2 : 1;
-
-	if (isMaximizingPlayer)
-	{
-		int bestScore = INT_MIN;
-		for (int i = 0; i < board.getCols(); i++)
-		{
-			// can we play in this column ?
-			if (board.isColumnEmpty(i))
-			{
-				// simulate move in each column
-				board.makeMove(i, player);
-				// get score
-				int score = minimax(depth + 1, maxDepth, false, nextPlayer);
-				// update score
-				bestScore = max(bestScore, score);
-				// undo move
-				board.undoMove();
-				// cout << "max player " << score << " " << bestScore << endl;
-			}
-		}
-		return bestScore;
-	}
-	else
-	{
-		int bestScore = INT_MAX;
-		
-		for (int i = 0; i < board.getCols(); i++)
-		{
-			// can we play in this column ?
-			if (board.isColumnEmpty(i))
-			{
-				// simulate move in each column
-				board.makeMove(i, player);
-				// get score
-				int score = this->minimax(depth + 1, maxDepth, true, nextPlayer);
-				// update score
-				bestScore = min(bestScore, score);
-				// undo move
-				board.undoMove();
-				// cout << "min player " << score << " " << bestScore << endl;
-			}
-		}
-		return bestScore;
-	}
-}
-
-
 
 int Game::alphabetapruning(int depth, int maxDepth, int alpha, int beta, bool isMaximizingPlayer, int player)
 {
