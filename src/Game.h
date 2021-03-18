@@ -28,6 +28,8 @@ private:
      * @return player symbol if win else 0
     */
     int minimax(int depth, int maxDepth, bool isMaximizingPlayer, int player);
+    int negamax(int depth, int maxDepth, bool isMaximizingPlayer, int player);
+    int alphabetapruning(int depth, int maxDepth, int alpha, int beta, bool isMaximizingPlayer, int player);
 };
 
 #endif
