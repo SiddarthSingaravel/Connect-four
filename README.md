@@ -26,11 +26,11 @@ The concept of this project is to visualize how much of an impact parallelism ha
 - The easiest way to parallelize the minmax algorithm is to partition the search tree into sub-trees and assign them into multiple processors for searching.
 - We can divide the computation workload (evaluating the cost function of each node of the game tree) among parallel processes. If we apply a) for our game tree: In case of two parallel processors- one will evaluate the positions at 0,2,4,6 and second will evaluate at 1,3,5.
 <p align="center">
-  <img src = images/gametree.png width="150" height="150">
+  <img src = images/gametree.png width="550" height="250">
 </p>
 
-- The ***paralleization*** takes at each of the AI algorithm and at the evaluate function.
-- Inside the recursive AI function,
+- The ***parallelization*** takes at each of the AI algorithm and at the evaluate function.
+- Inside the **recursive AI** function,
   ```
   #pragma omp parallel for num_threads(4) if(isMaximizingPlayer)
     if (isMaximizingPlayer)
@@ -44,7 +44,7 @@ The concept of this project is to visualize how much of an impact parallelism ha
                 // simulate move in each column
                 board.makeMove(i, player);
    ```
-- Inside the EvaluateBoard function,
+- Inside the **EvaluateBoard** function,
   ```
   int Board::evaluateBoard(int player)
   {
